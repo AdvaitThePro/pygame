@@ -1,4 +1,18 @@
 import turtle as turt
+import os
+import winsound
+from sys import platform
+
+# Check OS
+if platform == "linux" or platform == "linux2":
+    def playit():
+        os.system("aplay bounce.wav&")
+elif platform == "darwin":
+    def playit():
+        os.system("afplay bounce.wav&")
+elif platform == "win32":
+    def playit():
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
 
 #create window
 win = turt.Screen()
@@ -10,6 +24,10 @@ win.bgcolor("#0066ff")
 win.setup(width=800, height=600)
 # no autoupdates
 win.tracer(0)
+
+# Score
+home = 0
+visitor = 0
 
 # Paddle A
 player_1 = turt.Turtle()
@@ -41,7 +59,6 @@ ball.dy = 0.15
 
 
 # Pen (Turtle 🐢)
-
 pen = turt.Turtle()
 pen.speed(0)
 pen.color("Black")
@@ -88,21 +105,34 @@ while True:
     if ball.ycor() > 290:
          ball.sety(290)
          ball.dy = ball.dy * -1
+         playit()
     if ball.ycor() < -290:
          ball.sety(-290)
          ball.dy = ball.dy * -1
+         playit()
     if ball.xcor() > 390:
         ball.goto(0, 0)
         ball.dx = ball.dx * -1
+        home = home + 1
+        pen.clear()
+        pen.write("🏡Home🏡: {}     ⛩Visitor🧭: {}".format(home, visitor), align="center", font=("Russo One", 24, "normal"))
+        playit()
+        
     if ball.xcor() < -390:
-       ball.goto(0, 0)
-       ball.dx = ball.dx * -1
+        ball.goto(0, 0)
+        ball.dx = ball.dx * -1
+        visitor = visitor + 1
+        pen.clear()
+        pen.write("🏡Home🏡: {}     ⛩Visitor🧭: {}".format(home, visitor), align="center", font=("Russo One", 24, "normal"))
+        playit()
 
     # Ball and Paddle Coliision
     if (ball.xcor() > 340 and ball.xcor() < 350 and(ball.ycor() < player_2.ycor() + 40 and ball.ycor() > player_2.ycor() -40)):
         ball.setx(340)
         ball.dx = ball.dx * -1
+        playit()
 
     if (ball.xcor() < -340 and ball.xcor() > -350 and(ball.ycor() < player_1.ycor() + 40 and ball.ycor() > player_1.ycor() -40)):
         ball.setx(-340)
         ball.dx = ball.dx * -1
+        playit()
