@@ -36,8 +36,8 @@ ball.shape("circle")
 ball.color("Lime")
 ball.penup()
 ball.goto(0, 0)
-ball.dx = 0.1
-ball.dy = 0.1
+ball.dx = 0.15
+ball.dy = 0.15
 
 # Functions
 def player_1_up():
@@ -87,3 +87,11 @@ while True:
        ball.goto(0, 0)
        ball.dx = ball.dx * -1
 
+    # Ball and Paddle Coliision
+    if (ball.xcor() > 340 and ball.xcor() < 350 and(ball.ycor() < player_2.ycor() + 40 and ball.ycor() > player_2.ycor() -40)):
+        ball.setx(340)
+        ball.dx = ball.dx * -1
+
+    if (ball.xcor() < -340 and ball.xcor() > -350 and(ball.ycor() < player_1.ycor() + 40 and ball.ycor() > player_1.ycor() -40)):
+        ball.setx(-340)
+        ball.dx = ball.dx * -1
