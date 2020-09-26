@@ -39,6 +39,17 @@ ball.goto(0, 0)
 ball.dx = 0.15
 ball.dy = 0.15
 
+
+# Pen (Turtle 🐢)
+
+pen = turt.Turtle()
+pen.speed(0)
+pen.color("Black")
+pen.penup()
+pen.hideturtle()
+pen.goto(0, 250)
+pen.write("🏡Home🏡: 0     ⛩Visitor🧭: 0", align="center", font=("Russo One", 24, "normal"))
+
 # Functions
 def player_1_up():
     y = player_1.ycor()
